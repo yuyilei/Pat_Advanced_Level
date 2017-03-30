@@ -10,7 +10,6 @@ int cmp(char a[10] , char b[10]) {
     int mm2 = 10*(b[3]-'0') + (b[4]-'0') ;
     int ss1 = 10*(a[6]-'0') + (a[7]-'0') ;
     int ss2 = 10*(b[6]-'0') + (b[7]-'0') ;
-
     if ( yy1 > yy2 )
         return 1 ;
     else if ( yy1 < yy2 )

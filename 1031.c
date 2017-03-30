@@ -18,7 +18,7 @@ int main() {
 
     for ( i = 0 ; i < left ; i ++ ){
     
-        for ( int j = 0 ; j < bottom  ; j ++){
+         for ( int j = 0 ; j < bottom  ; j ++){
         
             if ( j == 0){
             
