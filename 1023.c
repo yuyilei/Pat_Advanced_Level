@@ -43,6 +43,5 @@ int main() {
     
         printf("%c",b[i]) ; // 不能用pust(b)或者printf("%s",b) 后面会多一个@莫名其妙,不知道为什么
     }
-
     return 0 ; 
 }
