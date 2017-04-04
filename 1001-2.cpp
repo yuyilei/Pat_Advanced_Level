@@ -4,6 +4,7 @@ using namespace std;
 int main() {
 
 
+
     int a , b ;
     cin >> a >> b ;
     string s = to_string( a+b ) ; // 坑爹啊,c++11 才支持to_string() ,每次编译都要加上 -std=c++11
