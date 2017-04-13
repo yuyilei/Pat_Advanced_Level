@@ -3,15 +3,15 @@
 #include<cstdio>
 using namespace std ;
 struct node{ 
-    int num ; 
+    float num ; //  月饼数量也应该是浮点型！！
     float  price ;
 } ;
 int cmp ( struct node a , struct node b ) {
     return a.price > b.price ;
 }
 int main () {
-    int n , all , i  ;
-    float res = 0 ,b  ; 
+    int n , i  ;
+    float res = 0 , b , all  ; 
     cin >> n >> all ;
     struct node *p = new struct node [n] ;
     for ( i = 0 ; i < n ; i++) {
@@ -24,15 +24,9 @@ int main () {
     sort(p,p+n,cmp) ;
     i = 0 ; 
     while ( all  > 0 ) {
-        if ( all > p[i].num  ) {
-            res += ( p[i].num *  p[i].price ) ;
-            all -= p[i].num ; 
-        } 
-        else  {
-            res += ( p[i].price * all ) ; 
-            all = 0 ; 
-        }
-        i++ ; 
+        int temp = ( all > p[i].num ) ? p[i].num : all ;
+        res += temp*p[i++].price ;
+        all -= temp ;
     }
     printf("%.2f",res) ;
     return 0 ; 
