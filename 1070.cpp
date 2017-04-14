@@ -24,7 +24,7 @@ int main () {
     sort(p,p+n,cmp) ;
     i = 0 ; 
     while ( all  > 0 ) {
-        int temp = ( all > p[i].num ) ? p[i].num : all ;
+        float temp = ( all > p[i].num ) ? p[i].num : all ;
         res += temp*p[i++].price ;
         all -= temp ;
     }
