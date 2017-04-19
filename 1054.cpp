@@ -2,7 +2,7 @@
 #include<iostream>
 #include<map>
 using namespace std ;
-//我知道这题有什么意义？？ ，而且我感觉用map 比建立 vector 合理！！！
+//我不知道这题有什么意义？？ ，而且我感觉用map 比建立 vector 合理！！！
 int main() {
     long m , n , i , j  , temp , max = 0 , out ;
     cin >> m >> n ;
