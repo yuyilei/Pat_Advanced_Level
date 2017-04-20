@@ -1,7 +1,7 @@
 #include<iostream>
 #include<string>
 #include<algorithm>
-using namespace std ;
+using namespace std ; // 超大整数加法不能用long long 会溢出，直接用字符串加法！！！
 string change( string a ){
     int flag = 0 ;
     string res = a ;
