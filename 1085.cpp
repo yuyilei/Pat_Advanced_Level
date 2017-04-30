@@ -7,13 +7,13 @@ using namespace std ;
 int cmp(int a , int b ){
     return a <  b ; 
 }
+int help[1000000000] = {0} ; 
 int main () {
     int n , p , i , j , max , out = 0 , temp ; 
     cin >> n >> p ; 
     vector<int> in(n) ;
     map<int,int> index ; 
     set<int> had ; 
-    int help(1000000000,0) ; 
     for ( i = 0 ; i < n ; i++) {
         cin >> in[i] ; 
         had.insert(in[i]) ; 
