@@ -1,52 +1,47 @@
 #include<iostream>
 #include<algorithm>
 #include<vector>
-#include<set>
 #include<map>
 using namespace std ; 
 int cmp(int a , int b ){
     return a <  b ; 
 }
-int help[1000000000] = {0} ; 
 int main () {
-    int n , p , i , j , max , out = 0 , temp ; 
+    int n , p , i , j ,z , max , h ,  out = 0 , temp , k = 0 , flag = 0  ; 
     cin >> n >> p ; 
     vector<int> in(n) ;
     map<int,int> index ; 
-    set<int> had ; 
+    vector<int> help(n) ; 
     for ( i = 0 ; i < n ; i++) {
-        cin >> in[i] ; 
-        had.insert(in[i]) ; 
+        scanf("%d",&in[i]) ; 
     }
     sort(in.begin(),in.end(),cmp) ;
-    for ( i = 0 , j = 0 ; i < in[n-1]; i++ ){
-        if ( i == in[j] ){
-            help[i] = 0 ; 
-            j++ ; 
-        }
-        else {
-            help[i] = in[j-1] ; 
-        }
-    }
-    for ( i = 0 ; i < in[n-1] ; i++) {
-        cout << help[i] << endl ; 
-    }
     for ( i = 0 ; i < n ; i++ ){
         index[in[i]] = i ; 
     } 
+    for ( i = n - 1 ; ; i--){
+        if ( in[i] <= in[0]*p ){
+            h = i ; 
+            break ; 
+        }
+    }
     for ( i = 0 ; i < n - out ; i++ ){
         max = in[i] * p ; 
-        while ( max < in[n-1] ){
-            if ( help[max] == 0 ){
-                temp = index[max] ; 
-                break ; 
-            }
-            else { 
-                temp = index[help[max]] ; 
-                break ; 
-            }
+        if   ( max >= in[n-1] ){
+            temp = n - 1 - i  ; 
+            help[i] = n - 1  ; 
+        } 
+        z = ( i!= 0 )? help[i-1]:h;
+        while ( max >= in[z] && z < n - 1 && max < in[n-1] ){
+            flag = 1 ;
+            z++  ; 
         }
-        temp = temp  - i + 1  ; 
+        if (flag ){
+            help[i] = z - 1  ;     
+            flag = 0 ; 
+            temp = z - 1  - i  ; 
+        }
+        temp++ ; 
         out = temp > out ? temp : out ;
     }
     cout << out ;  
