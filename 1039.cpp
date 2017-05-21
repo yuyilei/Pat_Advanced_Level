@@ -3,7 +3,7 @@
 #include<algorithm>
 using namespace std ;
 #define all  26*26*26*10 + 26*26*10 + 26*10 + 10  
-vector<int> res[all] ; // 它是一个二维数组 
+vector<int> res[all] ; // 它是一个二维数组, all是第一维的个数 ，第二维的个数还没确定 
 int getID( char name[] ){ // 把名字变为唯一的ID
     int res = (name[3]-'0') + 10*(name[2]-'A') + 26*10*(name[1]-'A') + 26*26*10*(name[0]-'A') ; 
     return res ; 
@@ -17,7 +17,7 @@ int main() {
         for ( j = 0 ; j < tmp2 ; j++ ){
             scanf("%s",temp) ; 
             k = getID(temp) ; 
-            res[k].push_back(tmp1) ; 
+            res[k].push_back(tmp1) ;// 把元素放入数组尾部 
         }
     }
     for ( i = 0 ; i < s ; i++ ){
