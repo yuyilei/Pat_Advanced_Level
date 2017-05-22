@@ -4,7 +4,7 @@ int main() {
     string in ; 
     int i , j , k , tmp , flag[128] , len , count = 0 , num[129] = {0} , order[50] = {0}; 
     for ( i = 0 ; i < 128 ; i++ ){
-        flag[i] = 256 ; // 很奇怪，不知道为什么设成129就是不行
+        flag[i] = 180 ; // 很奇怪，不知道为什么设成179就是不行，设成180就可以...
     }
     cin >> k >> in ; 
     len = in.size() ; 
@@ -12,7 +12,7 @@ int main() {
         num[in[i]]++ ; 
     }
     for ( i = 0 , j = 0 ; i < len  ; i++ ){
-        if ( num[in[i]] % k == 0 && flag[in[i]] == 256 ){
+        if ( num[in[i]] % k == 0 && flag[in[i]] == 180 ){
             order[j] = in[i] ; 
             flag[in[i]] = j++ ;
         }
