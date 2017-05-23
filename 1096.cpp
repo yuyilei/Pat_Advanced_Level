@@ -2,7 +2,7 @@
 #include<math.h>
 using namespace std ; 
 int main() {
-    long  n , i , j , k ,  temp , a[200] , num = 0 , flag = 0 , tmp2  ; 
+    long  n , i , j , k ,  temp , a[100] , num = 0 , flag = 0 , tmp2  ; 
     scanf("%ld",&n) ; 
     float s = sqrt(n)  ; 
     for ( i = 2 , j = 0 ; i <= s ; i++ ){
@@ -14,15 +14,9 @@ int main() {
     for ( temp = 0 , num = 0 , k = j , i = 0 ; i < k ; i++ ){
         temp = 0 ; 
         tmp2 = n ; 
-        while ( true ){
-            if ( a[i+temp] == (a[i]+temp) && (tmp2 % a[i+temp] == 0 ) ) {
+        for ( temp = 0 , tmp2 = n ; a[i+temp] == (a[i]+temp) && tmp2 % a[i+temp] == 0  ; temp++ ) {
                 tmp2 /= a[i+temp] ; 
-                temp++ ; 
             }
-            else {
-                break ; 
-            }       
-        }
         if ( temp > num ){
             num = temp ; 
             flag = i ; 
