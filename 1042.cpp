@@ -9,12 +9,10 @@ int main() {
         b[i] = i ; 
     }
     for ( i = 0 ; i < num ; i++ ){
-        for ( j = 1 ; j < 55 ; j++ ){
+        for ( j = 1 ; j < 55 ; j++ )
             res[a[j]] = b[j] ;
-        }      
-        for ( j = 1 ; j < 55 ; j++ ){
+        for ( j = 1 ; j < 55 ; j++ )
             b[j] = res[j] ; 
-        }
     }
     for ( i = 1 ; i < 55 ; i++ ){
         temp = ( res[i] - 1 ) / 13 ; 
