@@ -1,81 +1,48 @@
 #include<cstdio>
 #include<algorithm>
 #include<map>
-using namespace std ; 
+using namespace std ;
 struct st {
-    int c , m , e , a , r , flag , name ;  
-    char out ; 
-} ; 
-bool cmpC( struct st a , struct st b ) { return a.c > b.c ; }
-bool cmpM( struct st a , struct st b ) { return a.m > b.m ; }
-bool cmpE( struct st a , struct st b ) { return a.e > b.e ; }
-bool cmpA( struct st a , struct st b ) { return a.a > b.a ; }
+    int score[4] , rank[4] , id , best ;
+} ;
+int t = 4  ;
+int cmp ( struct st a , struct st b ) { return a.score[t] > b.score[t] ; }
 int main() {
-    map < int , int > had ; 
-    int n , s , i , temp , index , j , k ; 
-    scanf("%d %d",&n,&s) ; 
-    struct st *p = new struct st [n] ; 
-    struct st *c = new struct st [n] ; 
-    struct st *m = new struct st [n] ; 
-    struct st *e = new struct st [n] ;
-    struct st *a = new struct st [n] ;
-    for ( i = 0 ; i < n ; i++ ){
-        scanf("%d %d %d %d",&p[i].name ,&p[i].c ,&p[i].m ,&p[i].e) ; 
-        p[i].a = (p[i].c + p[i].m + p[i].e ) / 3.0 + 0.5  ; 
-        had[p[i].name] = i ; 
-        a[i] = p[i] ; 
-        c[i] = p[i] ; 
-        m[i] = p[i] ; 
-        e[i] = p[i] ; 
+    int num , i , j , tmp ,  out ;
+    char s[4] = {'A' , 'C' , 'M' , 'E' } ;
+    scanf("%d %d",&num , &out) ;
+    map <int , int > temp ;
+    struct st * ps = new struct st  [num] ;
+    for ( i = 0 ; i < num ; i++ ){
+        scanf("%d %d %d %d",&ps[i].id,&ps[i].score[1],&ps[i].score[2],&ps[i].score[3]) ;
+        ps[i].score[0]  = (ps[i].score[1] + ps[i].score[2] + ps[i].score[3] ) / 3.0 + 0.5 ;
     }
-    sort(a, a+n , cmpA ) ; 
-    sort(c, c+n , cmpC ) ; 
-    sort(m, m+n , cmpM ) ; 
-    sort(e, e+n , cmpE ) ; 
-    for ( i = 0 ; i < s ; i++ ){
-        scanf("%d",&temp) ; 
-        if ( had.count(temp) == 0 ) {
-            printf("N/A\n") ; 
-            continue ; 
-        }
-        for ( j = 0 ; j < n  ; j++ ){
-            if ( a[j].name == temp ) {
-                for ( k = j ; k >= 0 ; k-- ){
-                    if ( a[k].a != a[j].a ) {
-                        break ; 
-                    }
-                }
-                printf("%d A\n",k+2) ; 
-                break ; 
-            }
-            else if ( c[j].name == temp ){
-                for ( k = j ; k >= 0 ; k-- ){
-                    if ( c[k].c != c[j].c ) {
-                        break ; 
-                    }
-                }
-                printf("%d C\n",k+2) ; 
-                break ; 
-            }
-            else if ( m[j].name == temp ) {
-                for ( k = j ; k >= 0 ; k-- ){
-                    if ( m[k].m != m[j].m ) {
-                        break ; 
-                    }
-                }
-                printf("%d M\n",k+2) ; 
-                break ;
-            }
-            else if ( e[j].name == temp ) {
-                for ( k = j ; k >= 0 ; k-- ){
-                    if ( e[k].e != e[j].e ) {
-                        break ; 
-                    }
-                }
-                printf("%d E\n",k+2) ; 
-                break ; 
-            }       
+    for ( t = 0 ; t < 4  ; t++  ) {
+        sort(ps,ps+num,cmp) ;
+        ps[0].rank[t] = 1 ;
+        for ( i = 1 ; i < num ; i ++) {
+            ps[i].rank[t] = (ps[i].score[t] == ps[i-1].score[t] ) ? ps[i-1].rank[t] : i+1 ;
         }
     }
-    return 0 ; 
+    for ( i = 0 ; i < num ; i++ ){
+        temp[ps[i].id] = i ;
+        ps[i].best = 0 ;
+        int min = ps[i].rank[0] ;
+        for ( j = 1 ; j < 4 ; j++ ) {
+            if ( min > ps[i].rank[j] ) {
+                ps[i].best = j ;
+                min = ps[i].rank[j] ;
+            }
+        }
+    }
+    for ( i = 0 ; i < out ; i++ ) {
+        scanf("%d",&tmp) ;
+        if ( temp.count(tmp) == 0 )
+            printf("N/A\n") ;
+        else {
+            tmp = temp[tmp] ;
+            printf("%d %c\n",ps[tmp].rank[ps[tmp].best], s[ps[tmp].best]) ;
+        }
+    }
+    return 0 ;
 }
