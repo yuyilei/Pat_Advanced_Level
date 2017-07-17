@@ -1,65 +1,17 @@
 #include<iostream>
-#include<vector>
-using namespace std ; 
+#include<string>
+using namespace std;
 int main() {
-
-    long long a , b ;
+    int a , b ;
     cin >> a >> b ;
-    long long  res = a + b ; 
-    vector<int> out ;
-    vector<char> output ;
-
-    if ( res < 0 ){
-    
-        res = -res ;
-        output.push_back('-') ;
-    }
-
-    if (res==0) {
-    
-        cout << '0' ; 
-        return 0 ; 
-    }
-
-    while (res) {
-    
-        int c  = res % 10 ;
-        out.push_back(c) ;
-        res /= 10 ;
-    }
-    
-    int num = ( out.size() + 2 ) / 3 ;
-    if ( out.size() % 3 == 0 ){
-    
-        num -- ; 
-    }
-    int k = 0 ;
-    int flag = 0 ;
-    int s = out.size() % 3 ;
-    int q = s ;
-//    cout << s ;
-
-    for (vector<int>::iterator it = out.end() ; it != out.begin() ; it--, s--  ){
-        if ( s == 0)  {
-            flag = 1 ;
-            if ( q == 0 )
-                k = 0 ;
-            else 
-                k = 3 ;
-        }
-
-        if ( k % 3 == 0 && num && k && flag ){
-        
-            output.push_back(',') ;
-            num-- ;
-        }
-        output.push_back(*(it-1)+'0') ;
-        k++ ; 
-    }
-    
-    for (vector<char>::iterator it = output.begin() ; it != output.end() ; it++ ){
-    
-        cout << *it ;
+    string s = to_string( a+b ) ; // 坑爹啊,c++11 才支持to_string() ,每次编译都要加上 -std=c++11
+    int len = s.length() ;
+    int n = s.length() % 3 ;
+    for ( int i = 0 ; i < len ; i++ ){
+        cout << s[i] ;
+        if (s[i] == '-') continue ; // 负号不算数字,下标不加
+        if ((i+1) % 3 == n && i != len-1 )
+            cout << "," ;
     }
     return 0 ;
 }
