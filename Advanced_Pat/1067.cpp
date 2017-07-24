@@ -8,9 +8,9 @@ int main() {
     for ( i = 0 ; i < num ; i++ ) {
         scanf("%d",&tmp) ;
         p[tmp] = i ;
-        if ( tmp != i ) temp++ ;
+        if ( tmp != i && i != 0 ) temp++ ;
     }
-    for ( i = 0 ; i < temp - 1  ; i++ ) {
+    for ( i = 0 ; i < temp  ; i++ ) {
         if ( p[0] != 0 ) {
             swap(p[0],p[p[0]]) ;
         }
