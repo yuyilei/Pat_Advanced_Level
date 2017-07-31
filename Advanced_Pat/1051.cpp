@@ -1,43 +1,40 @@
-#include<iostream>
+#include<cstdio>
 #include<stack>
-#include<vector>
-using namespace std ; 
-int main(){
-    int max , len , n , i , j , t = 1 , s , flag = 0 , maxn ; 
-    cin >> max >> len >> n ; 
-    vector <int> in (len); 
-    stack <int> temp ;  
-    for ( i = 0 ; i < n ; i++ ){
-        temp.empty() ;
-        for ( j = 0 ; j < len ; j ++ ){
-            cin >> in[j] ; 
-        }
-        maxn = max ; 
-        cout << endl ; 
-        for ( t = 1 ,  s = 0 , flag = 0  ;   ; s++ ){
-            if ( in[s] > maxn ){
-                cout  << in[s] << " " << maxn << endl ;
-                flag = 1 ; 
-                break ; 
+using namespace std ;
+int main() {
+    int i , j , m , n , k , tmp , temp , t , flag = 0 , last ;
+    scanf("%d %d %d",&n,&m,&k) ;
+    for ( i = 0 , flag = 0 ; i < k ; i++ ) {
+        stack<int> s ;
+        for ( j = 0 , flag = 0 , tmp = 1 , last = 1 ; j < m ; j++ ) {
+            scanf("%d",&t) ;
+            if ( t >= tmp ) { // 如果输入的数字比当前栈顶的数字小，就把数字压入栈入，直到输入的数字等于当前栈顶
+                while  ( flag == 0 && tmp <= m ) {
+                    s.push(tmp) ;
+                    if ( s.size() > n  ) {   // 栈中数字多于n
+                        flag = 1 ;
+                        break ;
+                    }
+                    last = tmp ;
+                    tmp++ ;
+                    if ( last == t ) {  // 栈顶的数字等于输入的数字
+                        s.pop() ;
+                        break ;
+                    }
+                }
             }
-            while ( temp.empty() ||(temp.size() < maxn && !temp.empty() && temp.top() != in[s]) ){
-               // cout << t << endl ; 
-                temp.push(t++) ; 
+            else if ( flag == 0 ) { // 输入的数字大于等于栈顶的数字，直接pop出栈顶的数字，如果不等于输入的数字，说明不符合要求
+                temp = s.top() ;
+                s.pop() ;
+                if ( temp != t ) {
+                    flag = 1 ;
+                }
             }
-            if ( temp.top() != in[s] ){
-                cout << in[s] << endl ; 
-                flag = 1 ; 
-                break ; 
-            }
-            temp.pop() ; 
-            maxn++ ; 
         }
-        if ( flag == 0 ){
-            cout << "YES" << endl ; 
-        } 
-        else {
-            cout << "NO" << endl ;
-        }
+        if ( flag == 1 )
+            printf("NO\n") ;
+        else
+            printf("YES\n") ;
     }
     return 0 ;
 }
