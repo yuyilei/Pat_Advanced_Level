@@ -26,9 +26,8 @@ int main() {
             else if ( flag == 0 ) { // 输入的数字小于等于栈顶的数字，直接pop出栈顶的数字，如果不等于输入的数字，说明不符合要求
                 temp = s.top() ;
                 s.pop() ;
-                if ( temp != t ) {
+                if ( temp != t )
                     flag = 1 ;
-                }
             }
         }
         if ( flag == 1 )
