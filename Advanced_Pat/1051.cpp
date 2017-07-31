@@ -8,8 +8,8 @@ int main() {
         stack<int> s ;
         for ( j = 0 , flag = 0 , tmp = 1 , last = 1 ; j < m ; j++ ) {
             scanf("%d",&t) ;
-            if ( t >= tmp ) { // 如果输入的数字比当前栈顶的数字小，就把数字压入栈入，直到输入的数字等于当前栈顶
-                while  ( flag == 0 && tmp <= m ) {
+            if ( t >= tmp ) { // 如果输入的数字比当前栈顶的数字大，就把数字压入栈入，直到输入的数字等于当前栈顶
+                while  ( flag == 0 && tmp <= m ) {  // 利用循环把数字压入栈
                     s.push(tmp) ;
                     if ( s.size() > n  ) {   // 栈中数字多于n
                         flag = 1 ;
@@ -23,7 +23,7 @@ int main() {
                     }
                 }
             }
-            else if ( flag == 0 ) { // 输入的数字大于等于栈顶的数字，直接pop出栈顶的数字，如果不等于输入的数字，说明不符合要求
+            else if ( flag == 0 ) { // 输入的数字小于等于栈顶的数字，直接pop出栈顶的数字，如果不等于输入的数字，说明不符合要求
                 temp = s.top() ;
                 s.pop() ;
                 if ( temp != t ) {
