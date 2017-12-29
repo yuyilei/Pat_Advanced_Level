@@ -1,6 +1,6 @@
 #include<iostream>
-#include<vector>
-#include<deque>
+#include<queue>
+#include<stack>
 using namespace std ;
 struct  node {
     int val ;
@@ -8,9 +8,9 @@ struct  node {
     node( int v ) : val(v) , left(NULL) , right(NULL) { }
 } ;
 int postorder[30] , inorder[30] ;
-int num , i , j = 0  , root  , flag = 0 ;
+int num , root ;
 int find_index( int val ) {
-    for ( i = 0 ; i < num ; i++ )
+    for ( int i = 0 ; i < num ; i++ )
         if ( inorder[i] == val )
             return i ;
 }
@@ -18,53 +18,48 @@ struct node *build ( int  part[] , int number, int index ) { // number是节点�
     if ( number <= 0 )
         return  NULL ;
     root = part[number-1] ;
-    i = find_index(root) - index ;
-    cout << i << endl ;
+    int i = find_index(root) - index ;
     struct node * r = new struct node(root) ;
     r->left = build( part , i , index ) ;
     r->right = build( part+i , number-1-i , index+i+1 ) ;
     return r ;
 }
 int main() {
+    int i, j, flag = 1, k ; 
     cin >> num ;
-    deque<struct node*> out (num) ;
     for ( i = 0 ; i < num ; i++ )
         cin >> inorder[i] ;
     for ( i = 0 ; i < num ; i++ )
         cin >> postorder[i] ;
     struct node * r = build(postorder,num,0) ;
-    struct node *tmp ;
-    out.push_back(r) ;
-    int number = out.size() ;
-    while ( j < num ) {
-        number = out.size() ;
+    queue<struct node*> q ; 
+    stack<int> t ; 
+    q.push(r) ; 
+    k = r->val ; 
+    while ( !q.empty() ) {
+        int len = q.size() ; 
+        for ( i = 0 ; i < len ; i++ ) {
+            struct node* tmp = q.front() ; 
+            q.pop() ; 
+            if ( flag ) 
+                t.push(tmp->val) ; 
+            else { 
+                if ( tmp->val != k )
+                    cout << " " ; 
+                cout << tmp->val ; 
+            }
+            if ( tmp->left ) q.push(tmp->left) ; 
+            if ( tmp->right ) q.push(tmp->right) ; 
+        }
         if ( flag ) {
-            for  ( i = 0 ; i < number ; i++ , j++ ) {
-                tmp = out.front() ;
-                out.pop_front() ;
-                if ( j != 0 )
-                    cout << " " ;
-                cout << tmp ;
-                if ( tmp->left != NULL )
-                    out.push_front(tmp->left) ;
-                if ( tmp->right != NULL )
-                    out.push_front(tmp->right) ;
+            while ( !t.empty() ) {
+                if ( t.top() != k ) 
+                    cout << " " ; 
+                cout << t.top() ; 
+                t.pop() ; 
             }
-            flag = 0 ;
         }
-        else {
-            for  ( i = 0 ; i < number ; i++ , j++ ) {
-                tmp = out.front() ;
-                out.pop_front() ;
-                if ( j != 0 )
-                    cout << " " ;
-                cout << tmp ;
-                if ( tmp->right != NULL )
-                    out.push_front(tmp->right) ;
-                if ( tmp->left != NULL )
-                    out.push_front(tmp->left) ;
-            }
-            flag = 1 ;
-        }
-    }
+        flag = !flag ; 
+    } 
+    return 0 ; 
 }
