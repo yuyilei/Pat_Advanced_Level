@@ -2,6 +2,7 @@
 #include<iostream>
 using namespace std ; 
 
+// 原来 插入set 的时候，会自动排序的啊！！
 struct node {
     int num, count ; 
     node(int n, int c) : num(n),count(c) {}

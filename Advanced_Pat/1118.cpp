@@ -1,47 +1,48 @@
 #include<iostream>
-#include<vector>
-using namespace std ;
-vector <int> all(10010,0) ;
+using namespace std ; 
+
+int pre[10001] = {0} ; 
+int maxx = 0 ; 
+
+int root(int a) {
+    if ( pre[a] != a ) 
+        pre[a] = root(pre[a]) ;                    // 找出一个联通分支的根节点  
+    return pre[a] ;  
+}
+
+void Union(int a, int b) {                         // 合并两个节点 
+    int x = root(a) ; 
+    int y = root(b) ;  
+    if ( x != y ) 
+        pre[x] = y ; 
+}
+
 int main() {
-    int k , n , i , j , t ,flag = 0, num = 0 , m , now = 0  , tp , q , max = 0 , b1 , b2  ;
-    cin >> k ;
-    vector <int> temp (10) ;
-    for (  i = 0 ; i < k ; i ++ ){
-        cin >> m  ;
-        temp.resize(m) ; 
-        for ( j = 0 ; j < m ; j++ ) {
-            cin >> temp[j] ; 
-            max = ( max < temp[j]) ? temp[j] : max ; 
-            tp = all[temp[j]] ;
-            if ( tp != 0 ) {
-                flag = tp ;            
-            }
-        }
-        if ( flag == 0 ){
-            q = now + 1 ; 
-            now++ ; 
-        }
-        else {
-            q = flag  ;  
-        }
-        for ( j = 0 ; j < m ; j++ ) {
-            all[temp[j]] = q ; 
-        }
-    }
+    int n, m, i, j, t, k, flag, a, b, tree = 0 ; 
     cin >> n ; 
-    vector <string> out(n) ; 
-    for (  i = 0 ; i < n ; i++ ){
-        cin >> b1 >> b2 ; 
-        if ( all[b1] == all[b2] ){
-            out[i] = "Yes" ; 
+    for ( i = 1 ; i < 10001 ; i++ ) 
+        pre[i] = i ; 
+    for ( i = 0 ; i < n ; i++ ) {
+        cin >> k >> flag ;                         // 把所有在同一棵树上的鸟合并为一棵树上的鸟 
+        maxx = max(maxx,flag) ; 
+        for ( j = 1 ; j < k ; j++ ) {               
+            cin >> t ; 
+            maxx = max(maxx,t) ; 
+            Union(flag,t) ; 
         }
-        else {
-            out[i] = "No" ; 
-        }
+    }  
+    for ( i = 1 ; i <= maxx ; i++ ) {
+        if ( pre[i] == i ) 
+            tree++ ; 
     }
-    cout << now << " " << max << endl ;
-    for ( i = 0 ; i < n ; i++ ){
-        cout << out[i] << endl ; 
-    }
+    cout << tree << " " << maxx << endl ; 
+    cin >> m ; 
+    for ( i = 0 ; i < m ; i++ ) {
+        cin >> a >> b ; 
+        if ( root(a) == root(b) )                           // 根相同  
+            cout << "Yes" << endl ; 
+        else 
+            cout << "No" << endl ; 
+    }   
     return 0 ; 
 }
