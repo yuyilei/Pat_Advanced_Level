@@ -33,19 +33,19 @@ void Dijkstra() {
             if ( vis[i] == 1 || way[nowindex][i] == 0 ) 
                 continue ; 
             int nowtoi = mincost[nowindex] + way[nowindex][i] ; 
-            if ( nowtoi < mincost[i] ) {
+            if ( nowtoi < mincost[i] ) {                                    // 有更短的路径，直接更新
                 mincost[i] = nowtoi ; 
                 pre[i] = nowindex ; 
                 numofnode[i] = numofnode[nowindex] + 1 ; 
                 mosthpy[i] = mosthpy[nowindex] + hpy[i] ; 
                 numroute[i] = numroute[nowindex] ; 
             }
-            else if ( nowtoi == mincost[i] ) {
-                numroute[i] += numroute[nowindex] ; 
+            else if ( nowtoi == mincost[i] ) {                              // 路径长度相同
+                numroute[i] += numroute[nowindex] ;                         // 增加路径数
                 int nowhpy = mosthpy[nowindex] + hpy[i] ; 
-                if ( (nowhpy > mosthpy[i]) || 
-                        (nowhpy == mosthpy[i] && numofnode[i] > numofnode[nowindex] + 1) ) {
-                    pre[i] = nowindex ; 
+                if ( (nowhpy > mosthpy[i]) ||                               // 快乐值大 
+                        (nowhpy == mosthpy[i] && numofnode[i] > numofnode[nowindex] + 1) ) {     // 快乐值相同，平均快乐值大       
+                    pre[i] = nowindex ;                                       
                     numofnode[i] = numofnode[nowindex] + 1 ; 
                     mosthpy[i] = nowhpy ; 
                 }
@@ -74,8 +74,8 @@ int main() {
         way[name2int[n2]][name2int[n1]] = c ; 
     }
     
-    for ( i = 1 ; i < n ; i++ ) {
-        if ( way[0][i] != 0 ) {
+    for ( i = 1 ; i < n ; i++ ) {                                         // Dijkstra前的初始化 
+        if ( way[0][i] != 0 ) {                                           // 原点到该节点直接有路，这条路就是到这个节点的最短路径 
             mincost[i] = way[0][i] ; 
             numofnode[i] = 1 ;  
             pre[i] = 0 ; 
