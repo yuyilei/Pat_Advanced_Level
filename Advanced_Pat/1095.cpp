@@ -62,12 +62,12 @@ int main() {
                 mapp[r[i].name] = c ;
             }
             else {
-                car &c = mapp[r[i].name] ; 
+                car &c = mapp[r[i].name] ;                             // 要加 &  
                 c.intime = r[i].time ; 
             }
         }
         else if ( mapp.find(r[i].name) != mapp.end() ) {               // 状态为out，且在这之前有配对的in 
-            car &c = mapp[r[i].name] ; 
+            car &c = mapp[r[i].name] ;                                 // 要加 & 
             c.outtime = r[i].time ; 
             if ( c.intime != -1 && c.intime < c.outtime ) {
                 timequery t1 = timequery(1,c.intime) ;                 // 入停车场 
